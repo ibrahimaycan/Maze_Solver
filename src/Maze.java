@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
+import java.util.Stack;
 
 
 public class Maze {
@@ -10,7 +12,7 @@ public class Maze {
     private int columnLength;
     private Square currentSquare;
     private int currenti,currentj;
-
+    private int startRow,startColumn;
 
     public Maze(String path)throws IOException{
         try {
@@ -31,10 +33,13 @@ public class Maze {
             line=file.readLine();//Start
             line=file.readLine();
             position=line.split(",");
-            this.squares[Integer.parseInt(position[0])][Integer.parseInt(position[1])].setStatus("S");
-            currentSquare=this.squares[Integer.parseInt(position[0])][Integer.parseInt(position[1])];
-            currenti=Integer.parseInt(position[0]);
-            currentj=Integer.parseInt(position[1]);
+
+            startRow=Integer.parseInt(position[0]);
+            startColumn=Integer.parseInt(position[1]);
+            this.squares[startRow][startColumn].setStatus("S");
+            currentSquare=this.squares[startRow][startColumn];
+            currenti=startRow;
+            currentj=startColumn;
             line=file.readLine();//Ends
 
             while ((line=file.readLine()).equals("Traps")==false){
@@ -47,17 +52,15 @@ public class Maze {
                 this.squares[Integer.parseInt(position[0])][Integer.parseInt(position[1])].setStatus("T");
             }
 
-            while ((line=file.readLine())!=null){
-                position=line.split(",");
-                if (position[2].equals("East")){
+            while ((line=file.readLine())!=null) {
+                position = line.split(",");
+                if (position[2].equals("East")) {
                     this.squares[Integer.parseInt(position[0])][Integer.parseInt(position[1])].setWest();
-                }
-                else if (position[2].equals("South")){
+                } else if (position[2].equals("South")) {
                     this.squares[Integer.parseInt(position[0])][Integer.parseInt(position[1])].setSouth();
                 }
 
             }
-            printMaze();
 
         }
         catch (Exception ex){
@@ -80,14 +83,9 @@ public class Maze {
         currentj=j;
     }
 
-    private void printMaze(){
-        for(int i=0;i<this.rowLength;i++){
-            for (int j=0;j<this.columnLength;j++){
-                System.out.print(this.squares[i][j].getStatus());
-            }
-            System.out.println();
-        }
 
+    public void goSquare(int i,int j){
+        this.currentSquare=this.squares[i][j];
     }
     public void goEast(){
         this.currentSquare=this.squares[this.currenti][this.currentj-1];
@@ -111,5 +109,39 @@ public class Maze {
     public int getColumnLength(){
         return this.columnLength;
     }
+    public void resetMaze(){
+        for(int i=0;i<this.rowLength;i++){
+            for (int j=0;j<this.columnLength;j++){
+                squares[i][j].resetIsVisited();
+                squares[i][j].setBeforePosition(null);
+            }
+        }
+        this.currenti=startRow;
+        this.currentj=startColumn;
+
+    }
+    public int calculateCost(Stack<Square> path){
+        Stack<Square>temp=path;
+        int cost=0;
+        while (true){
+            temp.pop();
+            if(temp.isEmpty())
+                break;
+            cost++;
+            if(squares[temp.peek().getRow()][temp.peek().getColumn()].getStatus().equals("T"))
+                cost=cost+6;
+        }
+        return cost;
+    }
+/*    public int calculateCost(List<String> path){
+        int cost=0;
+        String[]position;
+        for (int i=0;i<path.size();i++){
+            position=path.get(i).split();
+            cost++;
+
+
+        }
+    }*/
 
 }

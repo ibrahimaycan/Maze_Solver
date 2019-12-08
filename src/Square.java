@@ -5,6 +5,15 @@ public class Square {
     private boolean isWestWall;
     private boolean isSouthWall;
     private boolean isVisited;
+    private String beforePosition;
+
+    public String getBeforePosition() {
+        return this.beforePosition;
+    }
+
+    public void setBeforePosition(String beforePosition) {
+        this.beforePosition = beforePosition;
+    }
 
     public Square(int row, int column, String status){
         this.row=row;
