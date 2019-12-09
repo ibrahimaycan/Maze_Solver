@@ -1,10 +1,11 @@
 import java.io.IOException;
+import java.security.CodeSigner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 public class StartGame {
     public static void main(String []args) throws IOException{
-        Maze maze = new Maze("input.txt");
+        /*
         Stack<Square> path=new Stack<Square>();
         ArrayList<Square> expandedPath=new ArrayList<Square>();
         int cost=0;
@@ -16,15 +17,41 @@ public class StartGame {
         }
         //maze.resetMaze();
 
+
+*/      //DFS
+        Maze maze=new Maze("input.txt");
+        DFS dfs =new DFS();
+        dfs.solve(maze);
+        Stack<Square> path=dfs.getPath();
+        ArrayList<Square> expandedPath=dfs.getExpandedPath();
+        int DFSCost=maze.calculateCost(path);
+        System.out.println("DFS path="+path);
+        System.out.println("DFS Expanded Path=");
+        for(int i=0;i<expandedPath.size();i++){
+            System.out.println(expandedPath.get(i).getRow()+","+expandedPath.get(i).getColumn());
+        }
+        System.out.println("DFS Cost="+DFSCost);
+
+
         //BFS
         maze=new Maze("input.txt");
-        List<String> pathBFS=new ArrayList<>();
-        int costBFS=0;
-        BFS.solve(maze,pathBFS,costBFS);
-        for (int i=0;i<pathBFS.size();i++){
-            System.out.println(pathBFS.get(i));
-        }
-        System.out.println("Cost="+cost);
+        BFS bfs=new BFS();
+        bfs.solve(maze);
+        List<String>BFSPath=bfs.getPath();
+        int BFSCost=bfs.getCost();
+        System.out.println("BFS PATH=");
+        System.out.println(BFSPath);
+        System.out.println("BFS Cost="+BFSCost);
+
+        //UNIFORM COST SEARCH
+        maze = new Maze("input.txt");
+        UniformCostSearch uniformCostSearch=new UniformCostSearch();
+        uniformCostSearch.solve(maze);
+        List<String> UniformCostSearchPath=uniformCostSearch.getPath();
+        int UniformCostSearchCost=uniformCostSearch.getCost();
+        System.out.println("Uniformed Cost Search PATH=");
+        System.out.println(UniformCostSearchPath);
+        System.out.println("Uniformed Cost Search Cost="+UniformCostSearchCost);
 
     }
 

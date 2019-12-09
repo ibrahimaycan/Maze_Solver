@@ -14,6 +14,7 @@ public class Maze {
     private int currenti,currentj;
     private int startRow,startColumn;
 
+
     public Maze(String path)throws IOException{
         try {
             String[] position;
@@ -37,6 +38,7 @@ public class Maze {
             startRow=Integer.parseInt(position[0]);
             startColumn=Integer.parseInt(position[1]);
             this.squares[startRow][startColumn].setStatus("S");
+            this.squares[startRow][startColumn].setCost(0);
             currentSquare=this.squares[startRow][startColumn];
             currenti=startRow;
             currentj=startColumn;
@@ -87,7 +89,7 @@ public class Maze {
     public void goSquare(int i,int j){
         this.currentSquare=this.squares[i][j];
     }
-    public void goEast(){
+    public void goWest(){
         this.currentSquare=this.squares[this.currenti][this.currentj-1];
         this.currentj--;
     }
@@ -95,7 +97,7 @@ public class Maze {
         this.currentSquare=this.squares[this.currenti+1][this.currentj];
         this.currenti++;
     }
-    public void goWest(){
+    public void goEast(){
         this.currentSquare=this.squares[this.currenti][this.currentj+1];
         this.currentj++;
     }

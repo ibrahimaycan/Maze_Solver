@@ -2,7 +2,9 @@ import java.util.*;
 
 
 public class BFS {
-    public static void solve(Maze maze, List<String>path,int cost){
+    private int cost=0;
+    private List<String> path=new ArrayList<>();
+    public void solve(Maze maze){
         Queue<Square> tempQueue=new LinkedList<>();
         tempQueue.add(maze.getCurrentSquare());
         maze.getCurrentSquare().setIsVisited();
@@ -12,12 +14,12 @@ public class BFS {
             int currenti=maze.getCurrentSquare().getRow();
             int currentj=maze.getCurrentSquare().getColumn();
             //East
-            if((    currentj!=0&&
-                    maze.getSquare(currenti,currentj-1).getIsWestWall()==false)&&
-                    maze.getSquare(currenti,currentj-1).getIsVisited()==false)
+            if(currentj!=maze.getColumnLength()-1&&
+                    (maze.getSquare(currenti,currentj).getIsWestWall()==false)&&
+                    maze.getSquare(currenti,currentj+1).getIsVisited()==false)
             {
-                ((LinkedList<Square>) tempQueue).add(maze.getSquare(currenti,currentj-1));
-                maze.getSquare(currenti,currentj-1).setBeforePosition(currenti+","+currentj);
+                ((LinkedList<Square>) tempQueue).add(maze.getSquare(currenti,currentj+1));
+                maze.getSquare(currenti,currentj+1).setBeforePosition(currenti+","+currentj);
             }
             //South
             if(currenti!=maze.getRowLength()-1&&
@@ -29,13 +31,14 @@ public class BFS {
 
             }
             //West
-            if(currentj!=maze.getColumnLength()-1&&
-                    (maze.getSquare(currenti,currentj).getIsWestWall()==false)&&
-                    maze.getSquare(currenti,currentj+1).getIsVisited()==false)
+            if((    currentj!=0&&
+                    maze.getSquare(currenti,currentj-1).getIsWestWall()==false)&&
+                    maze.getSquare(currenti,currentj-1).getIsVisited()==false)
             {
-                ((LinkedList<Square>) tempQueue).add(maze.getSquare(currenti,currentj+1));
-                maze.getSquare(currenti,currentj+1).setBeforePosition(currenti+","+currentj);
+                ((LinkedList<Square>) tempQueue).add(maze.getSquare(currenti,currentj-1));
+                maze.getSquare(currenti,currentj-1).setBeforePosition(currenti+","+currentj);
             }
+
             if(currenti!=0&&
                     (maze.getSquare(currenti-1,currentj).getIsSouthWall()==false)&&
                     maze.getSquare(currenti-1,currentj).getIsVisited()==false)
@@ -65,6 +68,14 @@ public class BFS {
             path.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());
         }
         Collections.reverse(path);
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public List<String> getPath(){
+        return this.path;
     }
 }
 

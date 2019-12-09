@@ -6,7 +6,7 @@ public class Square {
     private boolean isSouthWall;
     private boolean isVisited;
     private String beforePosition;
-
+    private int cost;
     public String getBeforePosition() {
         return this.beforePosition;
     }
@@ -50,5 +50,10 @@ public class Square {
     }
     public int getRow(){ return this.row;}
     public int getColumn(){return this.column;}
-
+    public int getCost() {
+        return this.cost;
+    }
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
 }
