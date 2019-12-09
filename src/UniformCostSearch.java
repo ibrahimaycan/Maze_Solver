@@ -3,9 +3,11 @@ import java.util.*;
 public class UniformCostSearch {
     private int cost;
     private List<String> path=new ArrayList<>();
+    private List<String> expandedPath=new ArrayList<>();
     public void solve(Maze maze){
         ArrayList<Square> nextSquares=new ArrayList<>();
         maze.getCurrentSquare().setIsVisited();
+        expandedPath.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());
 
         while(maze.getCurrentSquare().getStatus().equals("E")==false){
             int currenti=maze.getCurrentSquare().getRow();
@@ -61,6 +63,7 @@ public class UniformCostSearch {
             int minIndex=getMinCostIndex(nextSquares);
             maze.setCurrentSquare(  nextSquares.get(minIndex).getRow(),nextSquares.get(minIndex).getColumn());
             maze.getCurrentSquare().setIsVisited();
+            expandedPath.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());
             nextSquares.remove(minIndex);
         }
 
@@ -96,6 +99,10 @@ public class UniformCostSearch {
     }
     public List<String> getPath(){
         return this.path;
+    }
+
+    public List<String> getExpandedPath(){
+        return this.expandedPath;
     }
     private int getMinCostIndex(ArrayList<Square> squares){
         int minIndex;

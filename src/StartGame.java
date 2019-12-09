@@ -38,9 +38,12 @@ public class StartGame {
         BFS bfs=new BFS();
         bfs.solve(maze);
         List<String>BFSPath=bfs.getPath();
+        List<String>BFSExpandedPath=bfs.getExpandedPath();
         int BFSCost=bfs.getCost();
         System.out.println("BFS PATH=");
         System.out.println(BFSPath);
+        System.out.println("BFS Expanded PATH=");
+        System.out.println(BFSExpandedPath);
         System.out.println("BFS Cost="+BFSCost);
 
         //UNIFORM COST SEARCH
@@ -48,9 +51,12 @@ public class StartGame {
         UniformCostSearch uniformCostSearch=new UniformCostSearch();
         uniformCostSearch.solve(maze);
         List<String> UniformCostSearchPath=uniformCostSearch.getPath();
+        List<String> UniformCostSearchExpandedPath=uniformCostSearch.getExpandedPath();
         int UniformCostSearchCost=uniformCostSearch.getCost();
         System.out.println("Uniformed Cost Search PATH=");
         System.out.println(UniformCostSearchPath);
+        System.out.println("Uniformed Cost Search Expanded PATH=");
+        System.out.println(UniformCostSearchExpandedPath);
         System.out.println("Uniformed Cost Search Cost="+UniformCostSearchCost);
 
     }

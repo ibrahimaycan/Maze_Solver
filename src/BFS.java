@@ -4,10 +4,12 @@ import java.util.*;
 public class BFS {
     private int cost=0;
     private List<String> path=new ArrayList<>();
+    private List<String> expandedPath=new ArrayList<>();
     public void solve(Maze maze){
         Queue<Square> tempQueue=new LinkedList<>();
         tempQueue.add(maze.getCurrentSquare());
         maze.getCurrentSquare().setIsVisited();
+        expandedPath.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());
         tempQueue.poll();
 
         while (maze.getCurrentSquare().getStatus().equals("E")==false){
@@ -48,6 +50,7 @@ public class BFS {
             }
             maze.setCurrentSquare(tempQueue.peek().getRow(),tempQueue.peek().getColumn());
             maze.getCurrentSquare().setIsVisited();
+            expandedPath.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());
             tempQueue.poll();
 
 
@@ -76,6 +79,9 @@ public class BFS {
 
     public List<String> getPath(){
         return this.path;
+    }
+    public List<String> getExpandedPath(){
+        return this.expandedPath;
     }
 }
 

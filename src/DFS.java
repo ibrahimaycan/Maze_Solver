@@ -59,10 +59,8 @@ public class DFS {
                 path.pop();
                 Square s=path.peek();
                 maze.setCurrentSquare(s.getRow(),s.getColumn());
-                expandedPath.add(maze.getCurrentSquare());
+       //         expandedPath.add(maze.getCurrentSquare());
             }
-
-
         }
         System.out.println("");
 
