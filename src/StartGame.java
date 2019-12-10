@@ -34,6 +34,7 @@ public class StartGame {
         ids.printPath(idsPath);
 
         //DFS
+
         maze=new Maze("input.txt");
         DFS dfs =new DFS();
         dfs.solve(maze);
