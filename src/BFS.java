@@ -17,7 +17,7 @@ public class BFS {
             int currentj=maze.getCurrentSquare().getColumn();
             //East
             if(currentj!=maze.getColumnLength()-1&&
-                    (maze.getSquare(currenti,currentj).getIsWestWall()==false)&&
+                    (maze.getSquare(currenti,currentj).getIsEastWall()==false)&&
                     maze.getSquare(currenti,currentj+1).getIsVisited()==false)
             {
                 ((LinkedList<Square>) tempQueue).add(maze.getSquare(currenti,currentj+1));
@@ -34,7 +34,7 @@ public class BFS {
             }
             //West
             if((    currentj!=0&&
-                    maze.getSquare(currenti,currentj-1).getIsWestWall()==false)&&
+                    maze.getSquare(currenti,currentj-1).getIsEastWall()==false)&&
                     maze.getSquare(currenti,currentj-1).getIsVisited()==false)
             {
                 ((LinkedList<Square>) tempQueue).add(maze.getSquare(currenti,currentj-1));
@@ -84,5 +84,4 @@ public class BFS {
         return this.expandedPath;
     }
 }
-
 

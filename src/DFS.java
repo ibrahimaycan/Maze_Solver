@@ -15,7 +15,7 @@ public class DFS {
 
             //East
             if(currentj!=maze.getColumnLength()-1&&
-                    (maze.getSquare(currenti,currentj).getIsWestWall()==false)&&
+                    (maze.getSquare(currenti,currentj).getIsEastWall()==false)&&
                     maze.getSquare(currenti,currentj+1).getIsVisited()==false
             ){
                 maze.goEast();
@@ -36,7 +36,7 @@ public class DFS {
             }
             //West
             else if((    currentj!=0&&
-                    maze.getSquare(currenti,currentj-1).getIsWestWall()==false)&&
+                    maze.getSquare(currenti,currentj-1).getIsEastWall()==false)&&
                     maze.getSquare(currenti,currentj-1).getIsVisited()==false
             ){
                 maze.goWest();

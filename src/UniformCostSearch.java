@@ -15,7 +15,7 @@ public class UniformCostSearch {
 
             //East
             if(currentj!=maze.getColumnLength()-1&&
-                    (maze.getSquare(currenti,currentj).getIsWestWall()==false)&&
+                    (maze.getSquare(currenti,currentj).getIsEastWall()==false)&&
                     maze.getSquare(currenti,currentj+1).getIsVisited()==false){
 
                 maze.getSquare(currenti,currentj+1).setCost(maze.getCurrentSquare().getCost()+1);
@@ -41,7 +41,7 @@ public class UniformCostSearch {
 
             //West
             if((    currentj!=0&&
-                    maze.getSquare(currenti,currentj-1).getIsWestWall()==false)&&
+                    maze.getSquare(currenti,currentj-1).getIsEastWall()==false)&&
                     maze.getSquare(currenti,currentj-1).getIsVisited()==false){
                 maze.getSquare(currenti,currentj-1).setCost(maze.getCurrentSquare().getCost()+1);
                 maze.getSquare(currenti,currentj-1).setBeforePosition(currenti+","+currentj);

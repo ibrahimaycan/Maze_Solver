@@ -2,11 +2,21 @@ public class Square {
     private int row;
     private int column;
     private String status;  //S,E,T,N
-    private boolean isWestWall;
+    private boolean isEastWall;
     private boolean isSouthWall;
     private boolean isVisited;
     private String beforePosition;
+    private Square parentSquare;
     private int cost;
+
+    public Square getParentSquare(){
+        return this.parentSquare;
+    }
+
+    public void setParentSquare(Square parentSquare){
+        this.parentSquare = parentSquare;
+    }
+
     public String getBeforePosition() {
         return this.beforePosition;
     }
@@ -19,7 +29,7 @@ public class Square {
         this.row=row;
         this.column=column;
         this.status=status;
-        this.isWestWall=false;
+        this.isEastWall=false;
         this.isSouthWall=false;
         this.isVisited=false;
     }
@@ -27,14 +37,14 @@ public class Square {
     public String  getStatus(){
         return this.status;
     }
-    public void setWest(){
-        this.isWestWall=true;
+    public void setEast(){
+        this.isEastWall=true;
     }
     public void setSouth(){
         this.isSouthWall=true;
     }
-    public boolean getIsWestWall(){
-        return this.isWestWall;
+    public boolean getIsEastWall(){
+        return this.isEastWall;
     }
     public boolean getIsSouthWall(){
         return this.isSouthWall;

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Stack;
 
 
-public class Maze {
+public class Maze implements Cloneable{
 
     private Square[][] squares;
     private int rowLength;
@@ -57,7 +57,7 @@ public class Maze {
             while ((line=file.readLine())!=null) {
                 position = line.split(",");
                 if (position[2].equals("East")) {
-                    this.squares[Integer.parseInt(position[0])][Integer.parseInt(position[1])].setWest();
+                    this.squares[Integer.parseInt(position[0])][Integer.parseInt(position[1])].setEast();
                 } else if (position[2].equals("South")) {
                     this.squares[Integer.parseInt(position[0])][Integer.parseInt(position[1])].setSouth();
                 }
@@ -134,6 +134,10 @@ public class Maze {
                 cost=cost+6;
         }
         return cost;
+    }
+
+    protected Object clone() throws CloneNotSupportedException{
+        return super.clone();
     }
 /*    public int calculateCost(List<String> path){
         int cost=0;

@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.security.CodeSigner;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 public class StartGame {
     public static void main(String []args) throws IOException{
@@ -9,6 +10,11 @@ public class StartGame {
         Stack<Square> path=new Stack<Square>();
         ArrayList<Square> expandedPath=new ArrayList<Square>();
         int cost=0;
+
+        IDS.solve(maze, path, expandedPath);
+        System.out.println("Cost="+maze.calculateCost(path));
+        /* ibo
+
         DFS.solve(maze,path,expandedPath,cost);
         System.out.println("Cost="+maze.calculateCost(path));
         System.out.println("Expanded Path is:");
@@ -18,8 +24,17 @@ public class StartGame {
         //maze.resetMaze();
 
 
-*/      //DFS
+*/
         Maze maze=new Maze("input.txt");
+        //IDS
+
+        IDS ids = new IDS(maze);
+        Maze idsMaze = ids.solve();
+        Queue<Square> idsPath = ids.getPath(idsMaze);
+        ids.printPath(idsPath);
+
+        //DFS
+        maze=new Maze("input.txt");
         DFS dfs =new DFS();
         dfs.solve(maze);
         Stack<Square> path=dfs.getPath();
@@ -32,7 +47,7 @@ public class StartGame {
         }
         System.out.println("DFS Cost="+DFSCost);
 
-
+        /*
         //BFS
         maze=new Maze("input.txt");
         BFS bfs=new BFS();
@@ -46,6 +61,7 @@ public class StartGame {
         System.out.println(BFSExpandedPath);
         System.out.println("BFS Cost="+BFSCost);
 
+
         //UNIFORM COST SEARCH
         maze = new Maze("input.txt");
         UniformCostSearch uniformCostSearch=new UniformCostSearch();
@@ -58,8 +74,14 @@ public class StartGame {
         System.out.println("Uniformed Cost Search Expanded PATH=");
         System.out.println(UniformCostSearchExpandedPath);
         System.out.println("Uniformed Cost Search Cost="+UniformCostSearchCost);
-
+        */
     }
 
 
+    public static void toString(Stack<Square> path){
+        for(int i = 0; i <path.size(); i++){
+            System.out.print(path.get(i).getRow() + "," + path.get(i).getColumn()+ " ");
+        }
+        System.out.println();
+    }
 }
