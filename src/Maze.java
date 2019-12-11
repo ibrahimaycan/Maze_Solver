@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
@@ -156,14 +157,14 @@ public class Maze implements Serializable{
 
     }
     public int calculateCost(Stack<Square> path){
-        Stack<Square>temp=path;
+        Iterator temp=path.iterator();
+
         int cost=0;
-        while (true){
-            temp.pop();
-            if(temp.isEmpty())
-                break;
+        Square value=(Square) temp.next();
+        while (temp.hasNext()){
             cost++;
-            if(squares[temp.peek().getRow()][temp.peek().getColumn()].getStatus().equals("T"))
+            value=(Square) temp.next();
+            if(value.getStatus().equals("T"))
                 cost=cost+6;
         }
         return cost;

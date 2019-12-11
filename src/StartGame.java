@@ -43,15 +43,23 @@ public class StartGame {
         m = (Maze)maze.deepClone(maze);
         DFS dfs =new DFS();
         dfs.solve(m);
-        Stack<Square> path=dfs.getPath();
+        Stack<Square> DFSPath=dfs.getPath();
         ArrayList<Square> expandedPath=dfs.getExpandedPath();
-        int DFSCost=maze.calculateCost(path);
-        System.out.println("DFS path="+path);
-        System.out.println("DFS Expanded Path=");
-        for(int i=0;i<expandedPath.size();i++){
-            System.out.println(expandedPath.get(i).getRow()+","+expandedPath.get(i).getColumn());
+        int DFSCost=maze.calculateCost(DFSPath);
+        DFSPath=dfs.getPath();
+        int DFSPathSize=DFSPath.size();
+        System.out.print("DFS Path : \n");
+        for(int i=0;i<DFSPathSize;i++){
+            System.out.print("("+DFSPath.peek().getRow()+","+DFSPath.peek().getColumn()+") ");
+            DFSPath.pop();
         }
-        System.out.println("DFS Cost="+DFSCost);
+        System.out.println("\nDFS Expanded Path : ");
+        for(int i=0;i<expandedPath.size();i++){
+            System.out.print("("+expandedPath.get(i).getRow()+","+expandedPath.get(i).getColumn()+") ");
+        }
+        System.out.println("");
+        System.out.println("DFS Cost : "+DFSCost+"\n");
+
 
 
         //BFS
@@ -61,11 +69,11 @@ public class StartGame {
         List<String>BFSPath=bfs.getPath();
         List<String>BFSExpandedPath=bfs.getExpandedPath();
         int BFSCost=bfs.getCost();
-        System.out.println("BFS PATH=");
+        System.out.println("BFS PATH : ");
         System.out.println(BFSPath);
-        System.out.println("BFS Expanded PATH=");
+        System.out.println("BFS Expanded PATH : ");
         System.out.println(BFSExpandedPath);
-        System.out.println("BFS Cost="+BFSCost);
+        System.out.println("BFS Cost : "+BFSCost);
 
 
         //UNIFORM COST SEARCH
@@ -75,11 +83,11 @@ public class StartGame {
         List<String> UniformCostSearchPath=uniformCostSearch.getPath();
         List<String> UniformCostSearchExpandedPath=uniformCostSearch.getExpandedPath();
         int UniformCostSearchCost=uniformCostSearch.getCost();
-        System.out.println("Uniformed Cost Search PATH=");
+        System.out.println("\nUniformed Cost Search PATH : ");
         System.out.println(UniformCostSearchPath);
-        System.out.println("Uniformed Cost Search Expanded PATH=");
+        System.out.println("Uniformed Cost Search Expanded PATH : ");
         System.out.println(UniformCostSearchExpandedPath);
-        System.out.println("Uniformed Cost Search Cost="+UniformCostSearchCost);
+        System.out.println("Uniformed Cost Search Cost : "+UniformCostSearchCost);
 
     }
 
