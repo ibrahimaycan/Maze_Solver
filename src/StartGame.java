@@ -26,18 +26,23 @@ public class StartGame {
 
 */
         Maze maze=new Maze("input.txt");
-        //IDS
 
-        IDS ids = new IDS(maze);
+        //IDS
+        Maze m = (Maze)maze.deepClone(maze);
+        IDS ids = new IDS(m);
         Maze idsMaze = ids.solve();
         Queue<Square> idsPath = ids.getPath(idsMaze);
+        Queue<Square> idsExpandedPath = ids.getExpandedPath();
+        System.out.println("IDS path:");
         ids.printPath(idsPath);
+        System.out.println("IDS extended path:");
+        ids.printPath(idsExpandedPath);
+        System.out.println("IDS cost : " + ids.calculateCost(idsPath));;
 
         //DFS
-
-        maze=new Maze("input.txt");
+        m = (Maze)maze.deepClone(maze);
         DFS dfs =new DFS();
-        dfs.solve(maze);
+        dfs.solve(m);
         Stack<Square> path=dfs.getPath();
         ArrayList<Square> expandedPath=dfs.getExpandedPath();
         int DFSCost=maze.calculateCost(path);
@@ -48,11 +53,11 @@ public class StartGame {
         }
         System.out.println("DFS Cost="+DFSCost);
 
-        /*
+
         //BFS
-        maze=new Maze("input.txt");
+        m = (Maze)maze.deepClone(maze);
         BFS bfs=new BFS();
-        bfs.solve(maze);
+        bfs.solve(m);
         List<String>BFSPath=bfs.getPath();
         List<String>BFSExpandedPath=bfs.getExpandedPath();
         int BFSCost=bfs.getCost();
@@ -64,7 +69,7 @@ public class StartGame {
 
 
         //UNIFORM COST SEARCH
-        maze = new Maze("input.txt");
+        m = (Maze)maze.deepClone(maze);
         UniformCostSearch uniformCostSearch=new UniformCostSearch();
         uniformCostSearch.solve(maze);
         List<String> UniformCostSearchPath=uniformCostSearch.getPath();
@@ -75,7 +80,7 @@ public class StartGame {
         System.out.println("Uniformed Cost Search Expanded PATH=");
         System.out.println(UniformCostSearchExpandedPath);
         System.out.println("Uniformed Cost Search Cost="+UniformCostSearchCost);
-        */
+
     }
 
 
@@ -85,4 +90,6 @@ public class StartGame {
         }
         System.out.println();
     }
+
+
 }

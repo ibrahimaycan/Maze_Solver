@@ -3,8 +3,8 @@ public class DFS {
 
     private Stack<Square> path=new Stack<Square>();
     private ArrayList<Square> expandedPath=new ArrayList<Square>();
-    public void solve(Maze maze){
 
+    public void solve(Maze maze){
         path.push(maze.getCurrentSquare());
         expandedPath.add(maze.getCurrentSquare());
         maze.getCurrentSquare().setIsVisited();

@@ -5,39 +5,27 @@ public class IDS {
     private final int limit = 1024;
     private static boolean solnFind = false;
     private Queue<Square> frontier = new LinkedList<>();
-    private Queue<Square> path = new LinkedList<>();
-    private ArrayList<Square> expandedPath = new ArrayList<>();
+    private LinkedList<Square> path = new LinkedList<>();
+    private LinkedList<Square> expandedPath = new LinkedList<>();
     private Maze maze;
     private Maze tempMaze;
     public IDS(Maze maze){
-        try
-        {
-            this.maze =  (Maze)maze.clone();
-        }
-        catch(Exception e)
-        {
-            System.out.println("CLONING ERROR");
-        }
+        this.maze = (Maze)maze.deepClone(maze);
     }
 
     public Maze solve() {
+
         expandedPath.add(maze.getCurrentSquare());
         for(int i = 0; i < limit; i++){
-            try
-            {
-                tempMaze =  (Maze)maze.clone();
-            }
-            catch(Exception e)
-            {
-                System.out.println("CLONING ERROR");
-            }
-
-            frontier.add(maze.getCurrentSquare());
-            maze.getCurrentSquare().setIsVisited();
+            tempMaze = (Maze)maze.deepClone(maze);
+            //tempMaze = maze;
+            frontier.add(tempMaze.getCurrentSquare());
+            tempMaze.getCurrentSquare().setIsVisited();
 
             DLS(tempMaze, frontier, i);
             if(solnFind)
                 break;
+            frontier.clear();
         }
         return tempMaze;
     }
@@ -89,6 +77,7 @@ public class IDS {
                 //maze.getSquare(currenti - 1,currentj).setBeforePosition(currenti+","+currentj);
                 maze.getSquare(currenti - 1,currentj).setParentSquare(maze.getCurrentSquare());
             }
+            addExpandedPath(expandedPath,maze.getCurrentSquare());
             maze.setCurrentSquare(frontier.peek().getRow(),frontier.peek().getColumn());
             maze.getCurrentSquare().setIsVisited();
             frontier.poll();
@@ -111,9 +100,49 @@ public class IDS {
     }
 
     public void printPath(Queue<Square> path){
-        while (path.size()>0){
-            System.out.println(path.peek().getRow() + "," + path.peek().getColumn());
-            path.poll();
+        Iterator iter = path.iterator();
+        Square square;
+        while (iter.hasNext()){
+            square = ((Square)iter.next());
+            System.out.print("(" +square.getRow() + "," + square.getColumn() + ") ");
+        }
+        System.out.println();
+    }
+
+    public int calculateCost(Queue<Square> path){
+        Iterator iter = path.iterator();
+        Square square;
+        int cost = 0;
+        iter.next();
+        while(iter.hasNext()){
+            square = ((Square)iter.next());
+            cost++;
+            if(square.getStatus().equals("T"))
+                cost += 6;
+        }
+        return cost;
+    }
+
+    public LinkedList<Square> getExpandedPath() {
+        return expandedPath;
+    }
+
+    private void addExpandedPath(LinkedList<Square> expandedPath, Square square){
+        Iterator iter = expandedPath.iterator();
+        Square tempSquare;
+        boolean exist=false;
+        while (iter.hasNext()){
+            tempSquare = ((Square)iter.next());
+            if(square.getRow()==tempSquare.getRow() && square.getColumn()==tempSquare.getColumn()){
+                exist = true;
+                break;
+            }
+        }
+        if(exist){
+            return;
+        }
+        else if(!exist){
+            expandedPath.add(square);
         }
     }
 }

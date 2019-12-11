@@ -1,19 +1,52 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Stack;
 
 
-public class Maze implements Cloneable{
+public class Maze implements Serializable{
 
     private Square[][] squares;
+
+    public Square[][] getSquares() {
+        return squares;
+    }
+
+    public int getCurrenti() {
+        return currenti;
+    }
+
+    public int getCurrentj() {
+        return currentj;
+    }
+
+    public int getStartRow() {
+        return startRow;
+    }
+
+    public int getStartColumn() {
+        return startColumn;
+    }
+
     private int rowLength;
     private int columnLength;
     private Square currentSquare;
     private int currenti,currentj;
     private int startRow,startColumn;
 
+    public Maze(){
+
+    }
+
+    public Maze(Square[][] squares, int rowLength, int columnLength, Square currentSquare, int currenti, int currentj, int startRow, int startColumn) {
+        this.squares = squares;
+        this.rowLength = rowLength;
+        this.columnLength = columnLength;
+        this.currentSquare = currentSquare;
+        this.currenti = currenti;
+        this.currentj = currentj;
+        this.startRow = startRow;
+        this.startColumn = startColumn;
+    }
 
     public Maze(String path)throws IOException{
         try {
@@ -136,8 +169,19 @@ public class Maze implements Cloneable{
         return cost;
     }
 
-    protected Object clone() throws CloneNotSupportedException{
-        return super.clone();
+    public Object deepClone(Object object) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(object);
+            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            return ois.readObject();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 /*    public int calculateCost(List<String> path){
         int cost=0;
