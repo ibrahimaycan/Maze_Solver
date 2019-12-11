@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
@@ -28,6 +29,8 @@ public class Maze implements Serializable{
         return startColumn;
     }
 
+
+    private List <Square> goalSquares=new ArrayList<>();
     private int rowLength;
     private int columnLength;
     private Square currentSquare;
@@ -81,6 +84,7 @@ public class Maze implements Serializable{
             while ((line=file.readLine()).equals("Traps")==false){
                 position=line.split(",");
                 this.squares[Integer.parseInt(position[0])][Integer.parseInt(position[1])].setStatus("E");
+                goalSquares.add(this.squares[Integer.parseInt(position[0])][Integer.parseInt(position[1])]);
             }
 
             while ((line=file.readLine()).equals("Walls")==false){
@@ -184,15 +188,19 @@ public class Maze implements Serializable{
             return null;
         }
     }
-/*    public int calculateCost(List<String> path){
-        int cost=0;
-        String[]position;
-        for (int i=0;i<path.size();i++){
-            position=path.get(i).split();
-            cost++;
-
-
+    public int findMinCost(Square square){
+        int minCost=70 ;
+        int tempCost;
+        for (int i=0;i<goalSquares.size();i++){
+            tempCost=Math.abs(goalSquares.get(i).getRow()-square.getRow())+Math.abs(goalSquares.get(i).getColumn()-square.getColumn());
+            if(tempCost<minCost)
+                minCost=tempCost;
         }
-    }*/
+        return minCost;
+    }
+
+    public List<Square> getGoalSquares() {
+        return goalSquares;
+    }
 
 }

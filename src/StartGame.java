@@ -6,25 +6,7 @@ import java.util.Queue;
 import java.util.Stack;
 public class StartGame {
     public static void main(String []args) throws IOException{
-        /*
-        Stack<Square> path=new Stack<Square>();
-        ArrayList<Square> expandedPath=new ArrayList<Square>();
-        int cost=0;
 
-        IDS.solve(maze, path, expandedPath);
-        System.out.println("Cost="+maze.calculateCost(path));
-        /* ibo
-
-        DFS.solve(maze,path,expandedPath,cost);
-        System.out.println("Cost="+maze.calculateCost(path));
-        System.out.println("Expanded Path is:");
-        for(int i=0;i<expandedPath.size();i++){
-            System.out.println(expandedPath.get(i).getRow()+","+expandedPath.get(i).getColumn());
-        }
-        //maze.resetMaze();
-
-
-*/
         Maze maze=new Maze("input.txt");
 
         //IDS
