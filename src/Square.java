@@ -10,6 +10,23 @@ public class Square implements Serializable {
     private String beforePosition;
     private Square parentSquare;
     private int cost;
+    private int gn = 0;  //current cost
+    private int hn;  //heuristic cost
+
+    public int getGn(){
+        return gn;
+    }
+
+    public int getHn(){
+        return hn;
+    }
+    public void addGn(int cost){
+        this.gn += cost;
+    }
+
+    public void setHn(int hn){
+        this.hn = hn;
+    }
 
     public Square getParentSquare(){
         return this.parentSquare;
@@ -25,6 +42,10 @@ public class Square implements Serializable {
 
     public void setBeforePosition(String beforePosition) {
         this.beforePosition = beforePosition;
+    }
+
+    public Square(){
+
     }
 
     public Square(int row, int column, String status){

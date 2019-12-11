@@ -9,8 +9,20 @@ public class StartGame {
 
         Maze maze=new Maze("input.txt");
 
-        //IDS
+        //AStar
         Maze m = (Maze)maze.deepClone(maze);
+        AStar aStar = new AStar(m);
+        Maze aStarMaze = aStar.solve();
+        List<Square> aStarPath = aStar.getPath(aStarMaze);
+        List<Square> aStarExpandedPath = aStar.getExpandedPath();
+        System.out.println("AStar Path:");
+        aStar.printPath(aStarPath);
+        System.out.println("AStar Expanded Path");
+        aStar.printPath(aStarExpandedPath);
+        System.out.println("AStar cost:" + aStar.calculateCost(aStarPath) + "\n");
+
+        //IDS
+        m = (Maze)maze.deepClone(maze);
         IDS ids = new IDS(m);
         Maze idsMaze = ids.solve();
         Queue<Square> idsPath = ids.getPath(idsMaze);
