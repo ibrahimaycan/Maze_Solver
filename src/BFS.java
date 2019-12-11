@@ -49,8 +49,9 @@ public class BFS {
                 maze.getSquare(currenti-1,currentj).setBeforePosition(currenti+","+currentj);
             }
             maze.setCurrentSquare(tempQueue.peek().getRow(),tempQueue.peek().getColumn());
+            if(maze.getCurrentSquare().getIsVisited()==false)
+                expandedPath.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());
             maze.getCurrentSquare().setIsVisited();
-            expandedPath.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());
             tempQueue.poll();
 
 

@@ -27,7 +27,7 @@ public class StartGame {
         dfs.solve(m);
         Stack<Square> DFSPath=dfs.getPath();
         ArrayList<Square> expandedPath=dfs.getExpandedPath();
-        int DFSCost=maze.calculateCost(DFSPath);
+        int DFSCost=m.calculateCost(DFSPath);
         DFSPath=dfs.getPath();
         int DFSPathSize=DFSPath.size();
         System.out.print("DFS Path : \n");
@@ -53,7 +53,7 @@ public class StartGame {
         int BFSCost=bfs.getCost();
         System.out.println("BFS PATH : ");
         System.out.println(BFSPath);
-        System.out.println("BFS Expanded PATH : ");
+        System.out.println("BFS Expanded PATH : ("+BFSExpandedPath.size()+" node)");
         System.out.println(BFSExpandedPath);
         System.out.println("BFS Cost : "+BFSCost);
 
@@ -61,15 +61,29 @@ public class StartGame {
         //UNIFORM COST SEARCH
         m = (Maze)maze.deepClone(maze);
         UniformCostSearch uniformCostSearch=new UniformCostSearch();
-        uniformCostSearch.solve(maze);
+        uniformCostSearch.solve(m);
         List<String> UniformCostSearchPath=uniformCostSearch.getPath();
         List<String> UniformCostSearchExpandedPath=uniformCostSearch.getExpandedPath();
         int UniformCostSearchCost=uniformCostSearch.getCost();
         System.out.println("\nUniformed Cost Search PATH : ");
         System.out.println(UniformCostSearchPath);
-        System.out.println("Uniformed Cost Search Expanded PATH : ");
+        System.out.println("Uniformed Cost Search Expanded PATH : ("+UniformCostSearchExpandedPath.size()+" node)");
         System.out.println(UniformCostSearchExpandedPath);
         System.out.println("Uniformed Cost Search Cost : "+UniformCostSearchCost);
+
+        //GreedyBFS
+        m = (Maze)maze.deepClone(maze);
+        GreedyBestFirstSearch greedyBestFirstSearch=new GreedyBestFirstSearch();
+        greedyBestFirstSearch.solve(m);
+        List<String> GreedyBFSPath=greedyBestFirstSearch.getPath();
+        List<String> GreedyBFSExpandedPath=greedyBestFirstSearch.getExpandedPath();
+        int GreedyBFSCost=greedyBestFirstSearch.getCost();
+        System.out.println("\nGreedy Best First Search PATH : ");
+        System.out.println(GreedyBFSPath);
+        System.out.println("Greedy Best First Search Expanded PATH : ");
+        System.out.println(GreedyBFSExpandedPath);
+        System.out.println("Greedy Best First Search Cost : "+GreedyBFSCost);
+
 
     }
 
