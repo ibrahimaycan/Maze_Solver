@@ -4,12 +4,13 @@ import java.util.List;
 
 public class GreedyBestFirstSearch {
     private int cost=0;
-    private List<String> path=new ArrayList<>();
-    private List<String> expandedPath=new ArrayList<>();
+    private List<String> path=new ArrayList<>();//Holds path
+    private List<String> expandedPath=new ArrayList<>();//Holds expanded path
     public void solve(Maze maze){
         ArrayList<Square> nextSquares=new ArrayList<>();
         maze.getCurrentSquare().setIsVisited();
         expandedPath.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());
+        //Loops until finding Goal state
         while(maze.getCurrentSquare().getStatus().equals("E")==false){
             int currenti=maze.getCurrentSquare().getRow();
             int currentj=maze.getCurrentSquare().getColumn();

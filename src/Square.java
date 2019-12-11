@@ -1,15 +1,15 @@
 import java.io.Serializable;
 
 public class Square implements Serializable {
-    private int row;
-    private int column;
-    private String status;  //S,E,T,N
-    private boolean isEastWall;
-    private boolean isSouthWall;
-    private boolean isVisited;
-    private String beforePosition;
-    private Square parentSquare;
-    private int cost;
+    private int row;//Row of square
+    private int column;//Column of square
+    private String status;  //S,E,T,Null
+    private boolean isEastWall; //Checks if there is a wall on west of the square
+    private boolean isSouthWall;//Checks if there is a wall on south of the square
+    private boolean isVisited;//Checks if visited
+    private String beforePosition;//Before position of the square
+    private Square parentSquare;//Parent of the square
+    private int cost;   // Cost of square
     private int gn = 0;  //current cost
     private int hn;  //heuristic cost
 
@@ -28,6 +28,8 @@ public class Square implements Serializable {
         this.hn = hn;
     }
 
+
+
     public Square getParentSquare(){
         return this.parentSquare;
     }
@@ -42,10 +44,6 @@ public class Square implements Serializable {
 
     public void setBeforePosition(String beforePosition) {
         this.beforePosition = beforePosition;
-    }
-
-    public Square(){
-
     }
 
     public Square(int row, int column, String status){

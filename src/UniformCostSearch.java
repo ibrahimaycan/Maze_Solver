@@ -5,10 +5,11 @@ public class UniformCostSearch {
     private List<String> path=new ArrayList<>();
     private List<String> expandedPath=new ArrayList<>();
     public void solve(Maze maze){
-        ArrayList<Square> nextSquares=new ArrayList<>();
-        maze.getCurrentSquare().setIsVisited();
-        expandedPath.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());
+        ArrayList<Square> nextSquares=new ArrayList<>();//Holds the frontiers
+        maze.getCurrentSquare().setIsVisited();//Set the current state visited
+        expandedPath.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());////adding first square to expanded path
 
+        //Loops until finds Goal State
         while(maze.getCurrentSquare().getStatus().equals("E")==false){
             int currenti=maze.getCurrentSquare().getRow();
             int currentj=maze.getCurrentSquare().getColumn();
@@ -60,7 +61,8 @@ public class UniformCostSearch {
                     maze.getSquare(currenti-1,currentj).setCost(maze.getCurrentSquare().getCost()+7);
                 nextSquares.add(maze.getSquare(currenti-1,currentj));
             }
-            int minIndex=getMinCostIndex(nextSquares,maze);
+
+            int minIndex=getMinCostIndex(nextSquares,maze);//Get minimum cost of frontiers
             maze.setCurrentSquare(  nextSquares.get(minIndex).getRow(),nextSquares.get(minIndex).getColumn());
             maze.getCurrentSquare().setIsVisited();
             expandedPath.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());
@@ -75,6 +77,7 @@ public class UniformCostSearch {
         if(maze.getCurrentSquare().getStatus().equals("T"))
             cost+=6;
         path.add(maze.getCurrentSquare().getRow()+","+maze.getCurrentSquare().getColumn());
+        //Finds path
         while(maze.getCurrentSquare().getStatus().equals("S")==false){
             position=maze.getCurrentSquare().getBeforePosition().split(",");
             maze.goSquare(Integer.parseInt(position[0]),Integer.parseInt(position[1]));

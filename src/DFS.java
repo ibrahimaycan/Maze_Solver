@@ -1,14 +1,15 @@
 import java.util.*;
 public class DFS {
 
-    private Stack<Square> path=new Stack<Square>();
-    private ArrayList<Square> expandedPath=new ArrayList<Square>();
+    private Stack<Square> path=new Stack<Square>();//Holds the path
+    private ArrayList<Square> expandedPath=new ArrayList<Square>();//Holds the expanded path
 
     public void solve(Maze maze){
         path.push(maze.getCurrentSquare());
         expandedPath.add(maze.getCurrentSquare());
         maze.getCurrentSquare().setIsVisited();
 
+        //Loops until finding goal state
         while(maze.getCurrentSquare().getStatus().equals("E")==false){
             int currenti=maze.getCurrentSquare().getRow();
             int currentj=maze.getCurrentSquare().getColumn();

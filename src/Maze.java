@@ -7,27 +7,9 @@ import java.util.Stack;
 
 public class Maze implements Serializable{
 
-    private Square[][] squares;
+    private Square[][] squares;//Squares of the maze
 
-    public Square[][] getSquares() {
-        return squares;
-    }
 
-    public int getCurrenti() {
-        return currenti;
-    }
-
-    public int getCurrentj() {
-        return currentj;
-    }
-
-    public int getStartRow() {
-        return startRow;
-    }
-
-    public int getStartColumn() {
-        return startColumn;
-    }
 
 
     private List <Square> goalSquares=new ArrayList<>();
@@ -110,6 +92,27 @@ public class Maze implements Serializable{
 
 
     }
+
+    public Square[][] getSquares() {
+        return squares;
+    }
+
+    public int getCurrenti() {
+        return currenti;
+    }
+
+    public int getCurrentj() {
+        return currentj;
+    }
+
+    public int getStartRow() {
+        return startRow;
+    }
+
+    public int getStartColumn() {
+        return startColumn;
+    }
+
     public Square getSquare(int i,int j){
         return this.squares[i][j];
     }
@@ -117,16 +120,17 @@ public class Maze implements Serializable{
     public Square getCurrentSquare(){
         return this.currentSquare;
     }
+
     public void setCurrentSquare(int i, int j){
         currentSquare=squares[i][j];
         currenti=i;
         currentj=j;
     }
 
-
     public void goSquare(int i,int j){
         this.currentSquare=this.squares[i][j];
     }
+
     public void goWest(){
         this.currentSquare=this.squares[this.currenti][this.currentj-1];
         this.currentj--;
